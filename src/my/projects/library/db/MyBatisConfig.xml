@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<properties resource="Config.properties" />
+
+	<settings>
+		<setting name="cacheEnabled" value="false" />
+		<setting name="lazyLoadingEnabled" value="false" />
+		<setting name="aggressiveLazyLoading" value="true" />
+		<setting name="multipleResultSetsEnabled" value="true" />
+		<setting name="useColumnLabel" value="true" />
+		<setting name="useGeneratedKeys" value="false" />
+		<setting name="autoMappingBehavior" value="PARTIAL" />
+		<setting name="defaultExecutorType" value="SIMPLE" />
+		<setting name="safeRowBoundsEnabled" value="false" />
+		<setting name="mapUnderscoreToCamelCase" value="false" />
+		<setting name="localCacheScope" value="SESSION" />
+		<setting name="jdbcTypeForNull" value="NULL" />
+		<setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString" />
+		<setting name="logImpl" value="SLF4J" />
+	</settings>
+
+	<typeAliases>
+		<package name="uz.telegram.bot.objects" />
+		<package name="uz.telegram.bot.beans" />
+	</typeAliases>
+
+	<environments default="hikari_pool">
+		<environment id="hikari_pool">
+			<transactionManager type="JDBC" />
+			<dataSource type="uz.telegram.bot.db.pool.HikariConnectionPool">
+				<property name="driverClassName" value="${database.driver}" />
+				<property name="jdbcUrl" value="${database.url}" />
+				<property name="username" value="${database.username}" />
+				<property name="password" value="${database.password}" />
+				<property name="autoCommit" value="false" />
+				<property name="maximumPoolSize" value="${database.maximumActiveConnections}" />
+				<property name="minimumIdle" value="${database.maximumIdleConnections}" />
+				<property name="connectionTimeout" value="${database.maximumCheckoutTime}" />
+				<property name="connectionInitSql" value="SELECT 'x'" />
+			</dataSource>
+		</environment>
+		<environment id="mysql">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${database.driver}" />
+				<property name="url" value="${database.url}" />
+				<property name="username" value="${database.username}" />
+				<property name="password" value="${database.password}" />
+				<property name="poolMaximumActiveConnections" value="${database.maximumActiveConnections}" />
+				<property name="poolMaximumIdleConnections" value="${database.maximumIdleConnections}" />
+				<property name="poolMaximumCheckoutTime" value="${database.maximumCheckoutTime}" />
+				<property name="poolTimeToWait" value="${database.maximumWait}" />
+			</dataSource>
+		</environment>
+	</environments>
+
+	<databaseIdProvider type="DB_VENDOR">
+		<property name="MySql" value="mysql" />
+	</databaseIdProvider>
+
+	<mappers>
+		<mapper resource="uz/telegram/bot/db/mappers/Book.xml" />
+		<mapper resource="uz/telegram/bot/db/mappers/Author.xml" />
+		<mapper resource="uz/telegram/bot/db/mappers/Publisher.xml" />
+	</mappers>
+</configuration>
