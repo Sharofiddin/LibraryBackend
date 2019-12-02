@@ -7,6 +7,7 @@
 	    	   name,
 	    	   author_id,
 	    	   publisher_id,
+	    	   inventor_number,	
 	    	   status
 	      FROM book
 	</select>

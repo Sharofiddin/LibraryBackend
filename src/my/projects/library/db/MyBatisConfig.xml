@@ -21,11 +21,6 @@
 		<setting name="logImpl" value="SLF4J" />
 	</settings>
 
-	<typeAliases>
-		<package name="uz.telegram.bot.objects" />
-		<package name="uz.telegram.bot.beans" />
-	</typeAliases>
-
 	<environments default="hikari_pool">
 		<environment id="hikari_pool">
 			<transactionManager type="JDBC" />
@@ -41,23 +36,9 @@
 				<property name="connectionInitSql" value="SELECT 'x'" />
 			</dataSource>
 		</environment>
-		<environment id="mysql">
-			<transactionManager type="JDBC" />
-			<dataSource type="POOLED">
-				<property name="driver" value="${database.driver}" />
-				<property name="url" value="${database.url}" />
-				<property name="username" value="${database.username}" />
-				<property name="password" value="${database.password}" />
-				<property name="poolMaximumActiveConnections" value="${database.maximumActiveConnections}" />
-				<property name="poolMaximumIdleConnections" value="${database.maximumIdleConnections}" />
-				<property name="poolMaximumCheckoutTime" value="${database.maximumCheckoutTime}" />
-				<property name="poolTimeToWait" value="${database.maximumWait}" />
-			</dataSource>
-		</environment>
 	</environments>
-
 	<databaseIdProvider type="DB_VENDOR">
-		<property name="MySql" value="mysql" />
+		<property name="PostgreSQL" value="postgresql" />
 	</databaseIdProvider>
 
 	<mappers>
