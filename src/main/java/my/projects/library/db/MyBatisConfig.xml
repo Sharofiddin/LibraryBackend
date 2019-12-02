@@ -2,7 +2,7 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
-	<properties resource="Config.properties" />
+	<properties resource="application.properties" />
 
 	<settings>
 		<setting name="cacheEnabled" value="false" />
@@ -24,7 +24,7 @@
 	<environments default="hikari_pool">
 		<environment id="hikari_pool">
 			<transactionManager type="JDBC" />
-			<dataSource type="uz.telegram.bot.db.pool.HikariConnectionPool">
+			<dataSource type="my.projects.library.db.pool.HikariConnectionPool">
 				<property name="driverClassName" value="${database.driver}" />
 				<property name="jdbcUrl" value="${database.url}" />
 				<property name="username" value="${database.username}" />
@@ -42,8 +42,8 @@
 	</databaseIdProvider>
 
 	<mappers>
-		<mapper resource="uz/telegram/bot/db/mappers/Book.xml" />
-		<mapper resource="uz/telegram/bot/db/mappers/Author.xml" />
-		<mapper resource="uz/telegram/bot/db/mappers/Publisher.xml" />
+		<mapper resource="my/projects/library/db/mappers/Book.xml" />
+		<mapper resource="my/projects/library/db/mappers/Author.xml" />
+		<mapper resource="my/projects/library/db/mappers/Publisher.xml" />
 	</mappers>
 </configuration>

@@ -1,7 +1,6 @@
 package my.projects.library.beans;
-
+import my.projects.library.beans.enums.BookStatus;
 import lombok.Data;
-import my.projects.library.beans.emuns.BookStatus;
 
 @Data
 public class Book {

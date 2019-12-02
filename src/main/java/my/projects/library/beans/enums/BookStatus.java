@@ -1,4 +1,4 @@
-package my.projects.library.beans.emuns;
+package my.projects.library.beans.enums;
 
 public enum BookStatus {
 	BUSY,READY;
