@@ -9,5 +9,6 @@ public class Book {
 	private Long author_id;
 	private Long publisher_id;
 	private String inventor_number;
+	private Integer page;
 	private BookStatus status;
 }
