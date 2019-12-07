@@ -1,3 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "/home/sharof/Projects/mybatis/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="my.projects.library.db.mappers.Publisher"></mapper>
+<mapper namespace="my.projects.library.db.mappers.Publisher">
+<select id="selectPublishers" resultType="my.projects.library.beans.Publisher">
+	SELECT id,
+		   name
+	  FROM publisher
+	 <where>
+	 	<if test="id != null">
+	 		AND id=#{id}
+	 	</if>
+	 	<if test="name != null">
+	 		AND name=#{name}
+	 	</if>
+	 </where> 
+</select>
+
+<insert id="insertPublisher" parameterType="my.projects.library.beans.Publisher">
+	<selectKey keyProperty="id" resultType="long" order="BEFORE">
+		SELECT nextval('publisher_seq'::regclass)
+	</selectKey>
+	INSERT INTO publisher (id, name)
+	     VALUES (#{id}, #{name})      
+</insert>
+
+<update id="updatePublisher" parameterType="my.projects.library.beans.Publisher">
+	UPDATE publisher
+	   SET name = #{name}
+	 WHERE id = #{id}
+</update>
+</mapper>

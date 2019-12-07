@@ -3,13 +3,18 @@
 
 <mapper namespace="my.projects.libray.db.mappers.Book.xml">
 	<select id = "selectBooks" resultType="my.projects.library.beans.Book">
-	    SELECT id,
-	    	   name,
-	    	   author_id,
-	    	   publisher_id,
+	    SELECT b.id,
+	    	   b.name,
+	    	   a.id AS "author.id",
+	    	   a.first_name AS "author.first_name",
+	    	   a.last_name AS "author.last_name",
+	    	   p.id AS "publisher.id" ,
+	    	   p.name AS "publisher.name",
 	    	   inventor_number,	
 	    	   page,
 	    	   status
-	      FROM book
+	      FROM book b, author a, publisher p
+	     WHERE a.id = b.author_id
+	       AND p.id = b.publisher_id
 	</select>
 </mapper>

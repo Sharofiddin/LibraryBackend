@@ -13,4 +13,9 @@ public class AuthorService {
 		return new MyBatisHelper().selectList("selectAuthors");
 	}
 
+	public Boolean insertAuthor(Author author) {
+		int count = new MyBatisHelper().insert("insertAuthor", author);
+		return count > 0;
+	}
+
 }

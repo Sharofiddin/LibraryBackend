@@ -19,7 +19,7 @@ public class BookController {
 	private BookService bookService;
 	
 	@GetMapping("/api/books")
-	public List<Book> getBookList(){
+	public List<Book> getPublisherList(){
 		log.info("getting all books from db");
 		return bookService.findAll();
 	}

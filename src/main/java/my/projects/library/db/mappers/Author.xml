@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "/home/sharof/Projects/mybatis/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="my.projects.library.db.mappers.Author">
-<select id="selectAuthors">
+<select id="selectAuthors" resultType="my.projects.library.beans.Author">
 	SELECT id,
 		   first_name,
 		   last_name
@@ -18,5 +18,20 @@
 	  	</if>
 	  </where> 
 </select>
+
+<insert id="insertAuthor" parameterType="my.projects.library.beans.Author">
+	<selectKey keyProperty="id" resultType="long" order="BEFORE">
+		SELECT nextval('author_seq'::regclass)
+	</selectKey>
+	INSERT INTO author (id, first_name, last_name)
+	     VALUES (#{id}, #{first_name}, #{last_name})      
+</insert>
+
+<update id="updateAuthor" parameterType="my.projects.library.beans.Author">
+	UPDATE author
+	   SET first_name = #{first_name}
+	       last_name = #{last_name}
+	 WHERE id = #{id}
+</update>
 
 </mapper>

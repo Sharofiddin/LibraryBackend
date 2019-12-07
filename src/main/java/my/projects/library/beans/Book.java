@@ -6,8 +6,8 @@ import lombok.Data;
 public class Book {
 	private Long id;
 	private String name;
-	private Long author_id;
-	private Long publisher_id;
+	private Author author;
+	private Publisher publisher;
 	private String inventor_number;
 	private Integer page;
 	private BookStatus status;
