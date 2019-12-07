@@ -9,7 +9,7 @@ import my.projects.library.db.MyBatisHelper;
 
 @Service
 public class AuthorService {
-	List<Author> findAll(){
+	public List<Author> findAll(){
 		return new MyBatisHelper().selectList("selectAuthors");
 	}
 
