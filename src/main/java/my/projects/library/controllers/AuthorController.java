@@ -15,27 +15,36 @@ import my.projects.library.beans.Response;
 import my.projects.library.services.AuthorService;
 
 @Slf4j
-@CrossOrigin(origins = {"http://localhost:3000"})
+@CrossOrigin(origins = { "http://localhost:3000" })
 @RestController
 public class AuthorController {
-	
+
 	@Autowired
 	private AuthorService authorService;
-	
+
 	@GetMapping("/api/authors")
-	public List<Author> getBookList(){
+	public List<Author> getBookList() {
 		log.info("getting all authors from db");
 		return authorService.findAll();
 	}
-	
+
 	@PostMapping("/api/insert_author")
-	public Response insertAuthor(@RequestBody Author author){
+	public Response insertAuthor(@RequestBody Author author) {
 		log.info("Insert author  to db. Author = {}", author);
 		Response response = new Response();
-		Boolean inserted  = authorService.insertAuthor(author);
+		Boolean inserted = authorService.insertAuthor(author);
 		response.setStatus(inserted);
 		response.setText("Muallif muvaffaqiyatli kiritildi");
 		return response;
 	}
 
+	@PostMapping("/api/update_author")
+	public Response updateAuthor(@RequestBody Author author) {
+		log.info("Update author  to db. Author = {}", author);
+		Response response = new Response();
+		Boolean updated = authorService.updateAuthor(author);
+		response.setStatus(updated);
+		response.setText("Muallif muvaffaqiyatli yangilandi");
+		return response;
+	}
 }

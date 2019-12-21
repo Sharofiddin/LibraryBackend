@@ -14,20 +14,20 @@ import my.projects.library.beans.Publisher;
 import my.projects.library.services.PublisherService;
 
 @Slf4j
-@CrossOrigin(origins = {"http://localhost:3000"})
+@CrossOrigin(origins = { "http://localhost:3000" })
 @RestController
 public class PublisherController {
 	@Autowired
 	private PublisherService publisherService;
-	
+
 	@GetMapping("/api/publishers")
-	public List<Publisher> getPublisherList(){
+	public List<Publisher> getPublisherList() {
 		log.info("getting all publishers from db");
 		return publisherService.findAll();
 	}
-	
+
 	@PostMapping("/api/insert_publisher")
-	public void insertAuthor(@RequestBody Publisher publisher){
+	public void insertAuthor(@RequestBody Publisher publisher) {
 		log.info("Insert author  to db. Author = {}", publisher);
 		publisherService.insertPublisher(publisher);
 	}
