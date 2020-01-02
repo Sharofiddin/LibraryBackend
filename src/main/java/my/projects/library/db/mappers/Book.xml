@@ -17,4 +17,22 @@
 	     WHERE a.id = b.author_id
 	       AND p.id = b.publisher_id
 	</select>
+	
+	<insert id="insertBook" parameterType="my.projects.library.beans.Book">
+		INSERT INTO book (name ,
+						  author_id, 
+						  publisher_id, 
+						  status, 
+						  page, 
+						  inventor_number)
+		     VALUES (#{name}, 
+		     		 #{author.id}, 
+		     		 #{publisher.id}, 
+		     		 'READY', 
+		     		 #{page}, 
+		     		 #{inventor_number})
+		    <selectKey keyProperty="id" resultType="long" order="AFTER" >
+		      SELECT  currval('book_seq')
+		    </selectKey>
+	</insert>
 </mapper>

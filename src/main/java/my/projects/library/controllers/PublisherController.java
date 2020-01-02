@@ -28,7 +28,7 @@ public class PublisherController {
 	
 	@PostMapping("/api/insert_publisher")
 	public void insertAuthor(@RequestBody Publisher publisher){
-		log.info("Insert author  to db. Author = {}", publisher);
+		log.info("Insert pulisher  to db. Publisher = {}", publisher);
 		publisherService.insertPublisher(publisher);
 	}
 }

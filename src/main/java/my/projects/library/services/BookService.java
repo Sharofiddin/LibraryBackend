@@ -14,5 +14,9 @@ public class BookService {
 	public List<Book> findAll(){
 		return new MyBatisHelper().selectList("selectBooks");
 	}
-
+	
+	public Boolean insertBook(Book book) {
+		int count = new MyBatisHelper().insert("insertBook", book);
+		return count > 0;
+	}
 }
