@@ -12,16 +12,17 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.extern.slf4j.Slf4j;
 import my.projects.library.beans.Book;
 import my.projects.library.services.BookService;
+
 @Slf4j
-@CrossOrigin(origins = {"http://localhost:3000"})
+@CrossOrigin(origins = { "http://localhost:3000" })
 @RestController
 public class BookController {
-	
+
 	@Autowired
 	private BookService bookService;
-	
+
 	@GetMapping("/api/books")
-	public List<Book> getPublisherList(){
+	public List<Book> getPublisherList() {
 		log.info("getting all books from db");
 		return bookService.findAll();
 	}
