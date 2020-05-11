@@ -34,19 +34,19 @@ COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 -- Name: book_status; Type: TYPE; Schema: public; Owner: lib_user
 --
 
-CREATE TYPE public.book_status AS ENUM (
+CREATE TYPE book_status AS ENUM (
     'READY',
     'BUSY'
 );
 
 
-ALTER TYPE public.book_status OWNER TO lib_user;
+ALTER TYPE book_status OWNER TO lib_user;
 
 --
 -- Name: author_seq; Type: SEQUENCE; Schema: public; Owner: lib_user
 --
 
-CREATE SEQUENCE public.author_seq
+CREATE SEQUENCE author_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -54,7 +54,7 @@ CREATE SEQUENCE public.author_seq
     CACHE 1;
 
 
-ALTER TABLE public.author_seq OWNER TO lib_user;
+ALTER TABLE author_seq OWNER TO lib_user;
 
 SET default_tablespace = '';
 
@@ -64,20 +64,20 @@ SET default_with_oids = false;
 -- Name: author; Type: TABLE; Schema: public; Owner: lib_user
 --
 
-CREATE TABLE public.author (
-    id bigint DEFAULT nextval('public.author_seq'::regclass) NOT NULL,
+CREATE TABLE author (
+    id bigint DEFAULT nextval('author_seq'::regclass) NOT NULL,
     first_name character varying(200),
     last_name character varying(200)
 );
 
 
-ALTER TABLE public.author OWNER TO lib_user;
+ALTER TABLE author OWNER TO lib_user;
 
 --
 -- Name: book_seq; Type: SEQUENCE; Schema: public; Owner: lib_user
 --
 
-CREATE SEQUENCE public.book_seq
+CREATE SEQUENCE book_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -85,30 +85,30 @@ CREATE SEQUENCE public.book_seq
     CACHE 1;
 
 
-ALTER TABLE public.book_seq OWNER TO lib_user;
+ALTER TABLE book_seq OWNER TO lib_user;
 
 --
 -- Name: book; Type: TABLE; Schema: public; Owner: lib_user
 --
 
-CREATE TABLE public.book (
-    id bigint DEFAULT nextval('public.book_seq'::regclass) NOT NULL,
+CREATE TABLE book (
+    id bigint DEFAULT nextval('book_seq'::regclass) NOT NULL,
     name character varying(300),
     author_id bigint,
     publisher_id bigint,
-    status public.book_status,
+    status book_status,
     page integer,
     inventor_number character varying(100)
 );
 
 
-ALTER TABLE public.book OWNER TO lib_user;
+ALTER TABLE book OWNER TO lib_user;
 
 --
 -- Name: publisher_seq; Type: SEQUENCE; Schema: public; Owner: lib_user
 --
 
-CREATE SEQUENCE public.publisher_seq
+CREATE SEQUENCE publisher_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -116,73 +116,22 @@ CREATE SEQUENCE public.publisher_seq
     CACHE 1;
 
 
-ALTER TABLE public.publisher_seq OWNER TO lib_user;
+ALTER TABLE publisher_seq OWNER TO lib_user;
 
 --
 -- Name: publisher; Type: TABLE; Schema: public; Owner: lib_user
 --
 
-CREATE TABLE public.publisher (
-    id bigint DEFAULT nextval('public.publisher_seq'::regclass) NOT NULL,
+CREATE TABLE publisher (
+    id bigint DEFAULT nextval('publisher_seq'::regclass) NOT NULL,
     name character varying(200)
 );
 
 
-ALTER TABLE public.publisher OWNER TO lib_user;
-
---
--- Data for Name: author; Type: TABLE DATA; Schema: public; Owner: lib_user
---
-
-COPY public.author (id, first_name, last_name) FROM stdin;
-1	author 1	authorov
-\.
+ALTER TABLE publisher OWNER TO lib_user;
 
 
---
--- Data for Name: book; Type: TABLE DATA; Schema: public; Owner: lib_user
---
-
-COPY public.book (id, name, author_id, publisher_id, status, page, inventor_number) FROM stdin;
-1	Nashriyot 1	1	1	READY	100	1212-212-121
-\.
-
-
---
--- Data for Name: publisher; Type: TABLE DATA; Schema: public; Owner: lib_user
---
-
-COPY public.publisher (id, name) FROM stdin;
-1	Nashriyot 1
-\.
-
-
---
--- Name: author_seq; Type: SEQUENCE SET; Schema: public; Owner: lib_user
---
-
-SELECT pg_catalog.setval('public.author_seq', 1, true);
-
-
---
--- Name: book_seq; Type: SEQUENCE SET; Schema: public; Owner: lib_user
---
-
-SELECT pg_catalog.setval('public.book_seq', 1, true);
-
-
---
--- Name: publisher_seq; Type: SEQUENCE SET; Schema: public; Owner: lib_user
---
-
-SELECT pg_catalog.setval('public.publisher_seq', 1, true);
-
-
---
--- Name: author author_pkey; Type: CONSTRAINT; Schema: public; Owner: lib_user
---
-
-ALTER TABLE ONLY public.author
+ALTER TABLE ONLY author
     ADD CONSTRAINT author_pkey PRIMARY KEY (id);
 
 
@@ -190,7 +139,7 @@ ALTER TABLE ONLY public.author
 -- Name: book book_pkey; Type: CONSTRAINT; Schema: public; Owner: lib_user
 --
 
-ALTER TABLE ONLY public.book
+ALTER TABLE ONLY book
     ADD CONSTRAINT book_pkey PRIMARY KEY (id);
 
 
@@ -198,7 +147,7 @@ ALTER TABLE ONLY public.book
 -- Name: book inventor_number_unique_k; Type: CONSTRAINT; Schema: public; Owner: lib_user
 --
 
-ALTER TABLE ONLY public.book
+ALTER TABLE ONLY book
     ADD CONSTRAINT inventor_number_unique_k UNIQUE (inventor_number);
 
 
@@ -206,7 +155,7 @@ ALTER TABLE ONLY public.book
 -- Name: publisher publisher_pkey; Type: CONSTRAINT; Schema: public; Owner: lib_user
 --
 
-ALTER TABLE ONLY public.publisher
+ALTER TABLE ONLY publisher
     ADD CONSTRAINT publisher_pkey PRIMARY KEY (id);
 
 
@@ -214,19 +163,34 @@ ALTER TABLE ONLY public.publisher
 -- Name: book author_fk; Type: FK CONSTRAINT; Schema: public; Owner: lib_user
 --
 
-ALTER TABLE ONLY public.book
-    ADD CONSTRAINT author_fk FOREIGN KEY (author_id) REFERENCES public.author(id);
+ALTER TABLE ONLY book
+    ADD CONSTRAINT author_fk FOREIGN KEY (author_id) REFERENCES author(id);
 
 
 --
 -- Name: book publisher_fk; Type: FK CONSTRAINT; Schema: public; Owner: lib_user
 --
 
-ALTER TABLE ONLY public.book
-    ADD CONSTRAINT publisher_fk FOREIGN KEY (publisher_id) REFERENCES public.publisher(id);
+ALTER TABLE ONLY book
+    ADD CONSTRAINT publisher_fk FOREIGN KEY (publisher_id) REFERENCES publisher(id);
 
+CREATE TABLE appuser ( 
+    id bigserial NOT NULL , 
+    email varchar(45) unique NOT NULL, 
+    login varchar(45) NOT NULL, 
+    password varchar(64) NOT NULL, 
+    enabled boolean DEFAULT false, 
+   PRIMARY KEY (id) 
+ );
 
---
--- PostgreSQL database dump complete
---
+ CREATE TABLE role ( 
+   id serial NOT NULL, 
+   name varchar(45) NOT NULL, 
+   PRIMARY KEY (id) 
+ );
 
+ create table userrole( user_id bigint REFERENCES appuser(id) , role_id int REFERENCES role(id));
+ 
+ INSERT INTO role (name) values('ADMIN');
+ 
+ INSERT INTO appuser (login, password,email, enabled) VALUES ('admin', '$2a$10$IqTJTjn39IU5.7sSCDQxzu3xug6z/LPU6IF0azE/8CkHCwYEnwBX.', 'example@mail.ru', true);

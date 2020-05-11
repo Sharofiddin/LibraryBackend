@@ -45,5 +45,6 @@
 		<mapper resource="my/projects/library/db/mappers/Book.xml" />
 		<mapper resource="my/projects/library/db/mappers/Author.xml" />
 		<mapper resource="my/projects/library/db/mappers/Publisher.xml" />
+		<mapper resource="my/projects/library/db/mappers/Appuser.xml" />
 	</mappers>
 </configuration>
