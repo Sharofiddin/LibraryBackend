@@ -182,7 +182,7 @@ CREATE TABLE appuser (
     enabled boolean DEFAULT false, 
    PRIMARY KEY (id) 
  );
-
+alter table appuser add constraint login_ukey UNIQUE(login); 
  CREATE TABLE role ( 
    id serial NOT NULL, 
    name varchar(45) NOT NULL, 
