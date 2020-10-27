@@ -31,7 +31,7 @@ public class LoginFilter extends AbstractAuthenticationProcessingFilter{
             throws IOException {  
         Appuser appuser = new ObjectMapper()  
                 .readValue(req.getInputStream(), Appuser.class);  
-        log.debug("/api/login Appuser:{}", appuser);
+        log.info("/api/login Appuser:{}", appuser);
         return getAuthenticationManager().authenticate(  
                 new UsernamePasswordAuthenticationToken(  
                         appuser.getLogin(),  
