@@ -1,7 +1,6 @@
 package my.projects.library.security;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -15,8 +14,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
 
 import my.projects.library.security.filters.AuthenticationFilter;
 import my.projects.library.security.filters.LoginFilter;
@@ -45,34 +44,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                           UsernamePasswordAuthenticationFilter.class);  
       }  
     
-    @Bean
-    public CorsFilter corsFilter() {
-        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        final CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
-        // Don't do this in production, use a proper list  of allowed origins
-        config.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
-        config.setAllowedHeaders(Arrays.asList("Origin", "Content-Type", "Accept"));
-        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "OPTIONS", "DELETE", "PATCH"));
-        source.registerCorsConfiguration("/**", config);
-        return new CorsFilter(source);
-    }
+    @Bean  
+    CorsConfigurationSource corsConfigurationSource() {  
+          UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();  
+          CorsConfiguration config = new CorsConfiguration();  
+          config.setAllowedOrigins(Arrays.asList("http://localhost:3000"));  
+          config.setAllowedMethods(Arrays.asList("*"));  
+          config.setAllowedHeaders(Arrays.asList("*"));  
+          config.setAllowCredentials(true);  
+          config.applyPermitDefaultValues();  
     
-//    @Bean  
-//    CorsConfigurationSource corsConfigurationSource() {  
-//          UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();  
-//          CorsConfiguration config = new CorsConfiguration();  
-//          config.setAllowedOrigins(Arrays.asList("*"));  
-//          config.setAllowedMethods(Arrays.asList("*"));  
-//          config.setAllowedHeaders(Arrays.asList("*"));  
-//          config.setAllowCredentials(true);  
-//          config.applyPermitDefaultValues();  
-//          
-//          source.registerCorsConfiguration("/api/login", config);
-//          source.registerCorsConfiguration("/**", config);  
-//          return source;  
-//      }  
-//    
+          source.registerCorsConfiguration("/**", config);  
+          return source;  
+      }  
+    
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
     	auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
