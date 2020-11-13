@@ -29,7 +29,7 @@ public class BookController {
 	public void insertBook(@RequestBody Book book){
 		log.info("Inserting book  to db. Book = {} ...", book);
 		Boolean inserted = bookService.insertBook(book);
-		if(inserted)
+		if(Boolean.TRUE.equals(inserted))
 			log.info("Book inserted into db successfully");
 		else
 			log.error("Inserting book into db is failed!");
