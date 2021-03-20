@@ -18,4 +18,14 @@ public class BookService {
 		int count = new MyBatisHelper().insert("insertBook", book);
 		return count > 0;
 	}
+
+	public Boolean updateBook(Book book) {
+		int count = new MyBatisHelper().update("updateBook", book);
+		return count > 0;
+	}
+
+	public Boolean deleteBook(Long id){
+		int count = new MyBatisHelper().delete("deleteBook", id);
+		return count > 0;
+	}
 }
