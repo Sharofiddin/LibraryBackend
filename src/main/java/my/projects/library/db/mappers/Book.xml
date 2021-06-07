@@ -35,4 +35,20 @@
 		      SELECT  currval('book_seq')
 		    </selectKey>
 	</insert>
+
+	<update id="updateBook" parameterType="my.projects.library.beans.Book">
+		UPDATE book
+		SET name = #{name},
+		author_id = #{author.id},
+		publisher_id = #{publisher.id},
+		status = #{status},
+		page = #{page},
+		inventor_number = #{inventor_number}
+		WHERE id = #{id}
+	</update>
+
+	<delete id="deleteBook" parameterType="my.projects.library.beans.Book">
+		DELETE FROM book
+		WHERE id = #{id}
+	</delete>
 </mapper>

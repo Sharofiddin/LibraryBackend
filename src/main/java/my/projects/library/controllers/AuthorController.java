@@ -3,10 +3,7 @@ package my.projects.library.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import lombok.extern.slf4j.Slf4j;
 import my.projects.library.beans.Author;
@@ -43,6 +40,20 @@ public class AuthorController {
 		Boolean updated = authorService.updateAuthor(author);
 		response.setStatus(updated);
 		response.setText("Muallif muvaffaqiyatli yangilandi");
+		return response;
+	}
+
+	@DeleteMapping("/api/delete_author/{id}")
+	public Response deleteAuthor(@PathVariable long id){
+		log.info("Delete author from db. Author.id = {}", id);
+		Response response = new Response();
+		Boolean deleted = authorService.deleteAuthor(id);
+		response.setStatus(deleted);
+		if(deleted){
+			response.setText("Muallif muvaffaqiyatli o'chirildi");
+		}else {
+			response.setText("Bunday id lik muallif mavjud emas");
+		}
 		return response;
 	}
 }

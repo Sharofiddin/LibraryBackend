@@ -23,4 +23,9 @@ public class AuthorService {
 		return count > 0;
 	}
 
+	public Boolean deleteAuthor(long id){
+		int count = new MyBatisHelper().delete("deleteAuthor", id);
+		return count > 0;
+	}
+
 }
