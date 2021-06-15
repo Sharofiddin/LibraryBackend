@@ -6,7 +6,26 @@ logging:
     root: WARN
 mybatis:
   mapperLocations: classpath*:/my/projects/library/db/mappers/*.xml
-spring:
+  configuration:
+    cache-enabled: false
+    lazy-loading-enabled: false
+    aggressive-lazy-loading: true
+    multiple-result-sets-enabled: true
+    use-column-label:  true
+    use-generated-keys: false
+    auto-mapping-behavior: PARTIAL
+    default-executor-type: SIMPLE
+    safe-row-bounds-enabled: false
+    map-underscore-to-camel-case: false
+    local-cache-scope: SESSION
+    jdbc-type-for-null: NULL
+    lazy-load-trigger-methods:
+     - equals
+     - clone
+     - hashCode
+     - toString
+  
+spring:    
   datasource:
     driverClassName: org.postgresql.Driver
     password: 1qazxsw2
@@ -17,4 +36,4 @@ spring:
       maximum-pool-size: 20
       connection-timeout: 20000
       minimum-idle: 2
-      connection-init-sql: SELECT CURRENT_TIMESTAMP
+      connection-init-sql: SELECT CURRENT_TIMESTAMP 
